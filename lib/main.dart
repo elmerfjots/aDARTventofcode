@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AdventOfCodeApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AdventOfCodeApp extends StatelessWidget {
+  const AdventOfCodeApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Advent of Code Solver',
       theme: ThemeData(
         // This is the theme of your application.
         //
