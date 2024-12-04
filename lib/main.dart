@@ -15,15 +15,33 @@ class AdventOfCodeApp extends StatelessWidget {
     return MaterialApp(
       title: 'Advent of Code Solver',
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0x000f0f23),
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x00cccccc)),
-        useMaterial3: true,
+          scaffoldBackgroundColor: const Color.fromARGB(255, 15, 15, 35),
+          fontFamily: '"Source Code Pro", monospace', // Set your desired font family
+          textTheme: const TextTheme(
+              bodyLarge: TextStyle(
+                color: Color.fromRGBO(0, 153, 0, 1), // Set the default text color
+                fontSize: 18.0, // Set the default font size
+                fontWeight: FontWeight.normal, // Set the default font weight
+              ),
+              bodySmall: TextStyle(
+                color: Color.fromRGBO(0, 153, 0, 1), // Set the default text color
+                fontSize: 14.0, // Set the default font size
+                fontWeight: FontWeight.normal, // Set the default font weight
+              ),
+              bodyMedium: TextStyle(
+                color: Color.fromRGBO(0, 153, 0, 1), // Set the default text color
+                fontSize: 16.0, // Set the default font size
+                fontWeight: FontWeight.normal, // Set the default font weight
+              ),
+              // You can customize other text styles as needed
+              headlineMedium: TextStyle(
+                color: Color.fromRGBO(0, 153, 0, 1), // Set the default text color
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              )
+          ),
       ),
       home: const HomeScreen(),
     );
   }
 }
-
-
-
-

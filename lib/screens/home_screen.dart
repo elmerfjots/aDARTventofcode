@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../solvers/solver_factory.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -47,8 +47,9 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       
         appBar: AppBar(
-          title: Text('Advent of Code Solver'),
+          title: const Text('Advent of Code Solver'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -58,8 +59,13 @@ class HomeScreenState extends State<HomeScreen> {
               Row(
                 children: [
                   const Text('Select Day:'),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 200),
                   DropdownButton<int>(
+                    menuWidth: double.infinity,
+
+                    style: const TextStyle(
+                      color: Color.fromRGBO(0, 153, 0, 1),
+                    ),
                     value: _selectedDay,
                     items: List.generate(25, (index) => index + 1)
                         .map((day) => DropdownMenuItem(
