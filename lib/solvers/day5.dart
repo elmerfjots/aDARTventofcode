@@ -15,6 +15,21 @@ class Day5Solver {
   String part1(String input) {
     var orders = <int, List<int>>{};
     List<List<int>> updates = [];
+    fillOrdersAndUpdatesFromInput(input, orders, updates);
+    List<List<int>> goodUpdates =
+        updates.where((e) => isUpdateGood(e, orders)).toList();
+    return goodUpdates
+        .map((e) => e[(e.length / 2).floor()]) //Middle
+        .reduce((a, b) => a + b) //Sum
+        .toString();
+  }
+
+  String part2(String input) {
+    return "";
+  }
+
+  fillOrdersAndUpdatesFromInput(
+      String input, Map<int, List<int>> orders, List<List<int>> updates) {
     var orderUpdates = input.split("\n").map((e) => e.trim());
     var ordersFound = false;
     for (var o in orderUpdates) {
@@ -33,34 +48,23 @@ class Day5Solver {
         }
       }
     }
-    List<List<int>> goodUpdates = [];
-    for (var u in updates) {
-      var updateGood = true;
-      for (var i = 0; i < u.length; i++) {
-        var e = u[i];
-        var o = orders[e];
-        if(o == null && i != u.length-1){
-          updateGood = false;
-          continue;
-        }
-        for (var k = i + 1; k < u.length; k++) {
-          var eInner = u[k];
-
-          var found = o?.where((e) => e == eInner).toList();
-          if (found!.isEmpty) {
-            updateGood = false;
-            break;
-          }
-        }
-      }
-      if (updateGood) {
-        goodUpdates.add(u);
-      }
-    }
-    return goodUpdates.map((e)=>e[(e.length/2).floor()]).toList().reduce((a,b)=>a+b).toString();
   }
 
-  String part2(String input) {
-    return "";
+  isUpdateGood(List<int> update, Map<int, List<int>> orders) {
+    for (var i = 0; i < update.length; i++) {
+      var e = update[i];
+      var o = orders[e];
+      if (o == null && i != update.length - 1) {
+        return false;
+      }
+      for (var k = i + 1; k < update.length; k++) {
+        var eInner = update[k];
+        var found = o?.where((e) => e == eInner).toList();
+        if (found!.isEmpty) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 }
