@@ -53,7 +53,7 @@ class Day6Solver {
   int moveGuard((int row, int col) guardPosition, List<String> map) {
     bool isMoving = true;
     HashSet<(int, int)> visitedNode = HashSet<(int, int)>();
-    var filledMap = new List<String>.from(map);
+    var filledMap = List<String>.from(map);
     var currentGuardPosition = (guardPosition.$1, guardPosition.$2);
     var currentDirectionIdx = 0; //N
 
