@@ -165,4 +165,3 @@ Set<(int, int)> getAntiNodesDirection(
 
   return antinodePositions;
 }
-}
