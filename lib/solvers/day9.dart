@@ -14,6 +14,28 @@ class Day9Solver {
     return 'Day 9 Solution:\nPart 1: $part1Result\nPart 2: $part2Result';
   }
   String part1(String input){
+    var diskMap = generateDiskmap(input);
+    var cList = diskMap.compactFiles();
+    return diskMap.printMap() + checkSum(cList).toString();
+  }
+  String part2(String input){
+    var diskMap = generateDiskmap(input);
+    
+    return "";
+  }
+  int checkSum(List<Block>compactedFiles){
+    int checksum = 0;
+    var cnt = 0;
+    for(var b in compactedFiles){
+      for(var fb in b.filledSpace){
+        checksum += cnt * fb;
+        cnt++;  
+      }
+    }
+    return checksum;
+  }
+  
+  DiskMap generateDiskmap(String input) {
     var diskMap = DiskMap();
     var inputQueue = Queue<String>();
     inputQueue.addAll(input.split(""));
@@ -32,22 +54,7 @@ class Day9Solver {
       diskMap.map.add(Block(id,lengthOfFreeSpace,lengthOfFreeSpace,lengthOfFile));
       cnt++;
     }
-    var cList = diskMap.compactFiles();
-    return diskMap.printMap() + checkSum(cList).toString();
-  }
-  String part2(String input){
-    return "";
-  }
-  int checkSum(List<Block>compactedFiles){
-    int checksum = 0;
-    var cnt = 0;
-    for(var b in compactedFiles){
-      for(var fb in b.filledSpace){
-        checksum += cnt * fb;
-        cnt++;  
-      }
-    }
-    return checksum;
+    return diskMap;
   }
 }
 class DiskMap{

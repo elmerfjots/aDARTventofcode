@@ -25,7 +25,60 @@ class Day5Solver {
   }
 
   String part2(String input) {
-    return "";
+    var orderingRules = <int, List<int>>{};
+    List<List<int>> updates = [];
+    fillOrdersAndUpdatesFromInput(input, orderingRules, updates);
+    List<int> middlePageNumbers = [];
+
+    for (var update in updates) {
+      if (isOrderedCorrectly(update,orderingRules)) {
+        continue; // Skip correctly ordered updates
+      } else {
+        var orderedUpdate = orderCorrectly(update,orderingRules);
+        middlePageNumbers.add(orderedUpdate[orderedUpdate.length ~/ 2]);
+      }
+    }
+
+    // Sum of middle page numbers
+    int result = middlePageNumbers.reduce((a, b) => a + b);
+    return "$result";
+  }
+  bool isOrderedCorrectly(List<int> update, Map<int, List<int>> orderingRules) {
+    Map<int, int> indexMap = {
+      for (int i = 0; i < update.length; i++) update[i]: i
+    };
+    for (var x in orderingRules.keys) {
+      if (!indexMap.containsKey(x)) continue;
+      for (var y in orderingRules[x]!) {
+        if (!indexMap.containsKey(y)) continue;
+        if (indexMap[x]! > indexMap[y]!) return false;
+      }
+    }
+    return true;
+  }
+  List<int> orderCorrectly(
+      List<int> update, Map<int, List<int>> orderingRules) {
+    Set<int> visited = {};
+    List<int> ordered = [];
+
+    void dfs(int page) {
+      if (visited.contains(page)) return;
+      visited.add(page);
+      if (orderingRules.containsKey(page)) {
+        for (var dependent in orderingRules[page]!) {
+          if (update.contains(dependent)) {
+            dfs(dependent);
+          }
+        }
+      }
+      ordered.add(page);
+    }
+
+    for (var page in update) {
+      dfs(page);
+    }
+
+    return ordered.reversed.toList();
   }
 
   fillOrdersAndUpdatesFromInput(

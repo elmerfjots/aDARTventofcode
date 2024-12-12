@@ -15,7 +15,9 @@ class SolverFactory {
     7: () => Day7Solver(),
     8: () => Day8Solver(),
     9: () => Day9Solver(),
-    10: () => Day10Solver()
+    10: () => Day10Solver(),
+    11: () => Day11Solver(),
+    12: () => Day12Solver()
     // Add entries for additional days
   };
 
