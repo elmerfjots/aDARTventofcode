@@ -16,20 +16,14 @@ class Day11Solver {
   Future<String> part1(String input) async{
     var initialArrangement = input.split(" ").map((e)=>e.trim()).map(int.parse).toList();
     var blinks = 25;
-    var q1 = Queue<int>();
-    q1.addAll(initialArrangement);
-    for(var i = 0;i<blinks;i++){
-      var bq = Queue<int>();
-      while(q1.isNotEmpty){
-        var e = q1.removeFirst();
-        transform(e,bq);
-      }
-      q1.addAll(bq);
-    }
-    return q1.length.toString();
+    
+    return performBlinks(blinks,initialArrangement).length.toString();
   }
   Future<String> part2(String input) async{
-    return "";
+    var initialArrangement = input.split(" ").map((e)=>e.trim()).map(int.parse).toList();
+    var blinks = 75;
+    
+    return performBlinks(blinks,initialArrangement).length.toString(); // DIes
   }
   
   void transform(int e, Queue<int> bq) {
@@ -47,5 +41,19 @@ class Day11Solver {
       return;
     }
     bq.add(e*2024);
+  }
+  
+  Queue<int> performBlinks(int blinks,List<int> initialArrangement) {
+    var q1 = Queue<int>();
+    q1.addAll(initialArrangement);
+    for(var i = 0;i<blinks;i++){
+      var bq = Queue<int>();
+      while(q1.isNotEmpty){
+        var e = q1.removeFirst();
+        transform(e,bq);
+      }
+      q1.addAll(bq);
+    }
+    return q1;
   }
 }
